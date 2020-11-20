@@ -51,31 +51,6 @@ public class MemberController {
         return "home";
     }
 
-    /**
-     * 登录请求
-     * @return
-     */
-//    @RequestMapping("/login")
-//    public String showLogin() {
-//        return "login";
-//    }
-
-    /**
-     * 登陆失败请求
-     * @param request
-     * @param response
-     */
-    @RequestMapping("/login/error")
-    public void loginError(HttpServletRequest request, HttpServletResponse response) {
-        response.setContentType("text/html;charset=utf-8");
-        AuthenticationException exception =
-                (AuthenticationException) request.getSession().getAttribute("SPRING_SECURITY_LAST_EXCEPTION");
-        try {
-            response.getWriter().write(exception.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @GetMapping("/aa")
     public String aa(){
