@@ -5,12 +5,11 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author fate
@@ -50,6 +49,18 @@ public class MemberEntity implements Serializable {
                 ", birthday=" + birthday +
                 ", sex='" + sex + '\'' +
                 '}';
+    }
+
+    public MemberEntity() {
+    }
+
+    public MemberEntity(Integer id, String username, String password, Integer age, Date birthday, String sex) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.age = age;
+        this.birthday = birthday;
+        this.sex = sex;
     }
 
     public Integer getId() {

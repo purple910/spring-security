@@ -5,10 +5,10 @@ server:
 
 spring:
   datasource:
-    driver-class-name: dm.jdbc.driver.DmDriver
-    url: jdbc:dm://127.0.0.1:5237/TEST?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8
-    username: TEST
-    password: 123456789
+    url: jdbc:mysql://localhost:3306/mall?useUnicode=true&characterEncoding=utf-8&useSSL=true
+    username: root
+    password: admin
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
@@ -36,8 +36,8 @@ mybatis-plus:
       # 删除前
       logic-not-delete-value: 1
       # 删除后
-      logic-delete-value: 0
-  type-aliases-package: org.example.main.entity
+      logic-delete-value: 0log2j.xml
+  type-aliases-package: com.example.main.entity
 
 logging:
   config: classpath:log4j2.xml
