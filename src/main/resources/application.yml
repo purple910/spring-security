@@ -37,7 +37,7 @@ mybatis-plus:
       logic-not-delete-value: 1
       # 删除后
       logic-delete-value: 0
-  type-aliases-package: org.example.main.entity
+  type-aliases-package: com.example.main.entity
 
 logging:
   config: classpath:log4j2.xml

@@ -29,9 +29,8 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-//    compile fileTree(dir: 'libs', includes: ['*.jar'])
+    compile fileTree(dir: 'libs', includes: ['*.jar'])
 
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-log4j2
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: '2.3.4.RELEASE'
@@ -49,7 +48,7 @@ dependencies {
 
 
     // 达梦数据库
-    compile group: 'com.dm', name: 'DmJdbcDriver', version: '1.7.0'
+//    compile group: 'com.dm', name: 'DmJdbcDriver', version: '1.7.0'
 
 
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
@@ -67,6 +66,8 @@ dependencies {
 
     // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+    compile "javax.xml.bind:jaxb-api:2.3.0"
+    compile "com.diffplug.guava:guava-cache:19.0.0"
 }
 
 test {
