@@ -9,9 +9,13 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.cors.CorsUtils;
 
 /**
@@ -28,7 +32,8 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     private MyOncePerRequestFilter myOncePerRequestFilter;
     @Autowired
     private MyAuthenticationEntryPoint myAuthenticationEntryPoint;
-
+    @Autowired
+    private MyAccessDeniedHandler myAccessDeniedHandler;
 
     //登录成功处理器
     @Autowired
@@ -44,7 +49,6 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Autowired
     BCryptPasswordEncoderUtil bCryptPasswordEncoderUtil;
-
 
 
     /**
@@ -72,9 +76,9 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
         //放行注册API请求，其它任何请求都必须经过身份验证.
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/user/register").permitAll()
-//                .antMatchers(HttpMethod.POST,"/user/login").permitAll()
                 //ROLE_ADMIN可以操作任何事情
-                //.antMatchers("/**").hasRole("ADMIN")
+//                .antMatchers("/**").hasRole("ROOT")
+//                .anyRequest().authenticated();
                 //同等上一行代码
                 //.antMatchers("/**").hasAuthority("ROLE_ADMIN")
                 /*
@@ -93,17 +97,14 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
         //第4步：拦截账号、密码。覆盖 UsernamePasswordAuthenticationFilter过滤器
         http.addFilterAt(myUsernamePasswordAuthenticationFilter() , UsernamePasswordAuthenticationFilter.class);
 
-
         //第5步：拦截token，并检测。在 UsernamePasswordAuthenticationFilter 之前添加 JwtAuthenticationTokenFilter
         http.addFilterBefore(myOncePerRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         //第6步：处理异常情况：认证失败和权限不足
-        http.exceptionHandling().authenticationEntryPoint(myAuthenticationEntryPoint);
-                //.accessDeniedHandler(myAccessDeniedHandler);
+        http.exceptionHandling().authenticationEntryPoint(myAuthenticationEntryPoint).accessDeniedHandler(myAccessDeniedHandler);
 
-        //第7步：登录,因为使用前端发送JSON方式进行登录，所以登录模式不设置也是可以的。这里mei'youu'yong
-//        http.formLogin().loginProcessingUrl("/toLogin").permitAll();
-
+        //第7步：登录,因为使用前端发送JSON方式进行登录，所以登录模式不设置也是可以的。
+//        http.formLogin();
 
         //第8步：退出
         http.logout().addLogoutHandler(myLogoutHandler).logoutSuccessHandler(myLogoutSuccessHandler);

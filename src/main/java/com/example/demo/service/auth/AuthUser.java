@@ -18,18 +18,20 @@ public class AuthUser implements UserDetails {
     private String password;
 
 
+    private Collection<? extends GrantedAuthority> authorities;
+
     public AuthUser() {
     }
 
-    public AuthUser(String username, String password) {
+    public AuthUser(String username, String password,  Collection<? extends GrantedAuthority> authorities) {
         this.username = username;
         this.password = password;
+        this.authorities = authorities;
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override
@@ -65,4 +67,12 @@ public class AuthUser implements UserDetails {
     }
 
 
+    @Override
+    public String toString() {
+        return "JwtUser{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", authorities=" + authorities +
+                '}';
+    }
 }

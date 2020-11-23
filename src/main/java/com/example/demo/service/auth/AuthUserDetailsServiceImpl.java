@@ -35,8 +35,15 @@ public class AuthUserDetailsServiceImpl implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(String.format("%s.这个用户不存在", username));
         }else {
+            //查找角色
+//            List<String> roles =  roleService.getRolesByUserName(username);
+            List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+            authorities.add(new SimpleGrantedAuthority("ROLE_ROOT"));
+//            for (String role : roles) {
+//                authorities.add(new SimpleGrantedAuthority(role));
+//            }
             System.out.println("loadUserByUsername......user ===> " + user);
-            return new AuthUser(user.getUsername(), user.getPassword());
+            return new AuthUser(user.getUsername(), user.getPassword(),authorities);
         }
     }
 }

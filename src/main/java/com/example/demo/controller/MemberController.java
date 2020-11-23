@@ -35,7 +35,7 @@ public class MemberController {
         return "ok";
     }
 
-    @GetMapping("/info")
+    @PostMapping("/info")
     public String info(){
         return "info";
     }

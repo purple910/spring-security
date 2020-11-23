@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,8 +53,8 @@ public class MyUsernamePasswordAuthenticationFilter extends UsernamePasswordAuth
                     //System.out.println("password = " + password);
 
                     //检测账号、密码是否存在
-                    MemberEntity entity = userService.queryName(username);
-                    if (password.equals(entity.getPassword())) {
+                    MemberEntity memberEntity = userService.queryName(username);
+                    if (new BCryptPasswordEncoder().matches(password,memberEntity.getPassword())) {
                         //将账号、密码装入UsernamePasswordAuthenticationToken中
                         authRequest = new UsernamePasswordAuthenticationToken(username, password);
                         setDetails(request, authRequest);

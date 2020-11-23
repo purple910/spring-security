@@ -1,8 +1,10 @@
 package com.example.demo.config.auth;
 
+import com.baomidou.mybatisplus.extension.api.R;
 import com.example.demo.component.JwtTokenUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.AuthenticationException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

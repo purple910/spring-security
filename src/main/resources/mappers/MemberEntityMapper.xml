@@ -11,7 +11,9 @@
         <result column="SEX" property="sex" />
     </resultMap>
 
-    <select id="queryName" resultType="MemberEntity" parameterType="string">
+    <select id="queryName" resultType="com.example.demo.entity.MemberEntity" parameterType="string">
         select * from "TEST"."MEMBER" where "USERNAME"=#{username};
     </select>
+
+
 </mapper>

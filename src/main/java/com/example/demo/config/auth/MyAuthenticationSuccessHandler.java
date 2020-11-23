@@ -3,6 +3,7 @@ package com.example.demo.config.auth;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.example.demo.component.JwtTokenUtil;
 import com.example.demo.component.TokenCache;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,7 +25,8 @@ import java.util.Map;
 @Component
 public class MyAuthenticationSuccessHandler extends JSONAuthentication implements AuthenticationSuccessHandler {
 
-
+//    @Autowired
+//    SysFrontendMenuTableService service;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
@@ -51,10 +53,10 @@ public class MyAuthenticationSuccessHandler extends JSONAuthentication implement
 
         //加载前端菜单
 //        List<SysFrontendMenuTable> menus = service.getMenusByUserName(userDetails.getUsername());
-//        //
+        //
         Map<String,Object> map = new HashMap<>();
         map.put("username",userDetails.getUsername());
-//        map.put("auth",userDetails.getAuthorities());
+        map.put("auth",userDetails.getAuthorities());
         map.put("menus","menus");
         map.put("token",token);
         //装入token
