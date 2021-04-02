@@ -1,6 +1,6 @@
 plugins {
-	id 'org.springframework.boot' version '2.3.9.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'org.springframework.boot' version '2.3.1.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
 }
 
@@ -9,14 +9,20 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
+	mavenLocal()
 	mavenCentral()
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
+	// 添加lombok依赖
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	implementation group: 'org.apache.shiro', name: 'shiro-core', version: '1.4.0'
+	implementation group: 'org.apache.shiro', name: 'shiro-web', version: '1.4.0'
+	implementation group: 'org.apache.shiro', name: 'shiro-ehcache', version: '1.4.0'
+	implementation group: 'org.apache.shiro', name: 'shiro-spring', version: '1.4.0'
+
 }
 
 test {
